@@ -14,8 +14,6 @@ const game = Hnefatafl.new();
 const width = game.width();
 const height = game.height();
 
-console.log(game.get_board())
-
 const canvas = document.getElementById("hnefatafl-canvas");
 canvas.width = width * (CELL_SIZE + 1) + 1;
 canvas.height = height * (CELL_SIZE + 1) + 1;
@@ -67,24 +65,17 @@ const drawPieces = () => {
         for (let col = 0; col < width; col++) {
             const idx = getIndex(row, col);
 
-            console.log(idx);
-            console.log(cells[idx]);
-
             switch (cells[idx]) {
                 case CellType.Empty:
-                    console.log("Empty at", row, col)
                     ctx.fillStyle = EMPTY_COLOR;
                     break;
                 case CellType.Attacker:
-                    console.log("Attacker at", row, col)
                     ctx.fillStyle = ATTACKER_COLOR;
                     break;
                 case CellType.Defender:
-                    console.log("Defender at", row, col)
                     ctx.fillStyle = DEFENDER_COLOR;
                     break;
                 case CellType.King:
-                    console.log("king at", row, col)
                     ctx.fillStyle = KING_COLOR;
                     break;
             }
