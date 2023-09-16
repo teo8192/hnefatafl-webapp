@@ -9,6 +9,7 @@ const FORTRESS_COLOR = "#888888";
 const ATTACKER_COLOR = "#000000";
 const DEFENDER_COLOR = "#FFFFFF";
 const KING_COLOR = "#FFFF00";
+const HIGHLIGHT_COLOR = "#00FF00";
 
 const game = Hnefatafl.new();
 const width = game.width();
@@ -20,6 +21,34 @@ canvas.height = height * (CELL_SIZE + 1) + 1;
 
 const ctx = canvas.getContext("2d");
 
+let highlighted = {
+    x: -1,
+    y: -1,
+    sel: false
+};
+
+function getCursorPosition(canvas, event) {
+    const rect = canvas.getBoundingClientRect();
+    const x = Math.floor( (event.clientX - rect.left) / (CELL_SIZE + 1));
+    const y = Math.floor( (event.clientY - rect.top)  / (CELL_SIZE + 1));
+    console.log("x: " + x  + " y: " + y);
+    if (highlighted.sel) {
+        let result = game.move_piece(highlighted.x, highlighted.y, x, y);
+        if (result !== "") {
+            console.log(result);
+        }
+        highlighted.sel = false;
+    } else {
+        highlighted.x = x;
+        highlighted.y = y;
+        highlighted.sel = true;
+    }
+}
+
+canvas.addEventListener("mousedown", function(e) {
+    getCursorPosition(canvas, e);
+});
+
 const renderLoop = () => {
     // logic?
     //universe.tick();
@@ -29,7 +58,7 @@ const renderLoop = () => {
     game.copy_board_to_local();
     drawPieces();
 
-    //requestAnimationFrame(renderLoop);
+    requestAnimationFrame(renderLoop);
 };
 
 const drawGrid = () => {
@@ -63,7 +92,7 @@ const drawPieces = () => {
 
     for (let row = 0; row < height; row++) {
         for (let col = 0; col < width; col++) {
-            const idx = getIndex(row, col);
+            const idx = getIndex(col, row);
 
             switch (cells[idx]) {
                 case CellType.Empty:

@@ -73,6 +73,14 @@ impl Hnefatafl {
     pub fn render(&self) -> String {
         self.board.to_string()
     }
+
+    pub fn move_piece(&mut self, from_x: i32, from_y: i32, to_x: i32, to_y: i32) -> String {
+        self.board
+            .move_piece(from_x, from_y, to_x, to_y)
+            .map(|_| String::new())
+            .map_err(|e| e.to_string())
+            .unwrap_or_else(|e| e)
+    }
 }
 
 impl Default for Hnefatafl {
