@@ -11,11 +11,11 @@ We need this server to reference our files, so add the following three lines rig
     "hnefatafl-webapp": "file:../pkg"
   },
 ```
-Then we need to delete the files `www/index.js` and `www/index.html`, and create symlinks for them instead
+Then we need to delete the files `www/index.js` and `www/index.html`, and create links for them instead (symlinks did not work)
 ```sh
 rm www/index.js www/index.html
-ln -s webpage/index.js www
-ln -s webpage/index.html www
+ln webpage/index.js www
+ln webpage/index.html www
 ```
 
 Now it can be started:
