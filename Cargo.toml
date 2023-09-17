@@ -16,7 +16,7 @@ wasm-bindgen = "0.2.84"
 wee_alloc = "0.4.5"
 
 # TODO: change this to something better?
-hnefatafl-core = { path = "../hnefatafl-core" }
+hnefatafl-core = { path = "../../hnefatafl-core" }
 
 # The `console_error_panic_hook` crate provides better debugging of panics by
 # logging them with `console.error`. This is great for development, but requires
