@@ -19,6 +19,9 @@ const canvas = document.getElementById("hnefatafl-canvas");
 canvas.width = width * (CELL_SIZE + 1) + 1;
 canvas.height = height * (CELL_SIZE + 1) + 1;
 
+const msg_box = document.getElementById("hnefatafl-msg");
+const turn_box = document.getElementById("hnefatafl-turn");
+
 const ctx = canvas.getContext("2d");
 
 let highlighted = {
@@ -32,10 +35,12 @@ function getCursorPosition(canvas, event) {
     const x = Math.floor( (event.clientX - rect.left) / (CELL_SIZE + 1));
     const y = Math.floor( (event.clientY - rect.top)  / (CELL_SIZE + 1));
     console.log("x: " + x  + " y: " + y);
+    msg_box.textContent = "";
     if (highlighted.sel) {
         let result = game.move_piece(highlighted.x, highlighted.y, x, y);
         if (result !== "") {
             console.log(result);
+            msg_box.textContent = result;
         }
         highlighted.sel = false;
     } else {
@@ -52,6 +57,12 @@ canvas.addEventListener("mousedown", function(e) {
 const renderLoop = () => {
     // logic?
     //universe.tick();
+
+    if (game.is_black_to_play()) {
+        turn_box.textContent = "Black to play";
+    } else {
+        turn_box.textContent = "White to play";
+    }
 
     drawGrid();
 

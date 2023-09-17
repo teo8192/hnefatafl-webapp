@@ -4,7 +4,7 @@ mod utils;
 
 use wasm_bindgen::prelude::*;
 
-use hnefatafl_core::{Board, Piece};
+use hnefatafl_core::{Board, Piece, Turn};
 
 #[global_allocator]
 static ALLOC: wee_alloc::WeeAlloc = wee_alloc::WeeAlloc::INIT;
@@ -46,6 +46,10 @@ impl Hnefatafl {
 
     pub fn reset(&mut self) {
         self.board = Board::new();
+    }
+
+    pub fn is_black_to_play(&self) -> bool {
+        self.board.get_turn() == Turn::Black
     }
 
     pub fn copy_board_to_local(&mut self) {
